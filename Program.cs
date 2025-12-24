@@ -1,6 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using Todo.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddDbContext<TodoDbContext>(options => options.UseInMemoryDatabase("TodoDatabase"));
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -13,6 +18,8 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+DataSeeder.Seed(app);
 
 app.UseHttpsRedirection();
 

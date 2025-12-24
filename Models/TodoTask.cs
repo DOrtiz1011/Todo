@@ -2,7 +2,7 @@
 
 namespace Todo.Models
 {
-    public class Task : TableBase
+    public class TodoTask : TableBase
     {
         [Required (   ErrorMessage = "Title is required")]
         [MinLength(1, ErrorMessage = "Title cannot be empty")]
@@ -12,8 +12,8 @@ namespace Todo.Models
 
         public DateTime?    DueDateTime { get; set; }
 
-        public TaskStatus   Status      { get; set; }
+        public TodoStatus   Status      { get; set; }
 
-        public TaskPriority Priority    { get; set; }
+        public TodoPriority Priority    { get; set; }
     }
 }

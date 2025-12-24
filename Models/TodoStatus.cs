@@ -1,6 +1,6 @@
 ﻿namespace Todo.Models
 {
-    public enum TaskStatus
+    public enum TodoStatus
     {
         NotStarted = 0,
         InProgress = 1,

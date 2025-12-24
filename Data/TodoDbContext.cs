@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Todo.Models;
 
 public class TodoDbContext : DbContext
 {
@@ -6,5 +7,5 @@ public class TodoDbContext : DbContext
     {
     }
 
-    public DbSet<Task> Tasks => Set<Task>();
+    public DbSet<TodoTask> TodoTasks => Set<TodoTask>();
 }

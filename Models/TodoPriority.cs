@@ -1,6 +1,6 @@
 ﻿namespace Todo.Models
 {
-    public enum TaskPriority
+    public enum TodoPriority
     {
         Low    = 0,
         Medium = 1,
