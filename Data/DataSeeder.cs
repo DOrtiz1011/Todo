@@ -1,4 +1,6 @@
-﻿using Todo.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Reflection;
+using Todo.Models;
 
 namespace Todo.Data
 {
@@ -27,10 +29,13 @@ namespace Todo.Data
             {
                 foreach (var todoTaskPriority in Enum.GetValues<TodoPriority>())
                 {
+                    var status   = taskStatus.GetType().GetField(taskStatus.ToString())?.GetCustomAttribute<DisplayAttribute>()?.Name ?? taskStatus.ToString();
+                    var priority = taskStatus.GetType().GetField(todoTaskPriority.ToString())?.GetCustomAttribute<DisplayAttribute>()?.Name ?? todoTaskPriority.ToString();
+
                     tasks.Add(new TodoTask
                     {
-                        Title       = $"Task - {taskStatus} - {todoTaskPriority}",
-                        Description = $"This is a {todoTaskPriority} priority task with status {taskStatus}.",
+                        Title       = $"Task - {status} - {priority}",
+                        Description = $"This is a {priority} priority task with status {status}.",
                         DueDateTime = DateTime.UtcNow.AddDays((int)todoTaskPriority + 1),
                         Status      = taskStatus,
                         Priority    = todoTaskPriority
