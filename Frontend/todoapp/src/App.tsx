@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import api from './api';
 import type { TodoTask } from './types/TodoTask';
 import TodoTaskTable from './TodoTaskTable';
 import axios from 'axios';
@@ -54,21 +51,9 @@ function App() {
             {/*    <button onClick={addTask}>Add Task</button>*/}
             {/*</div>*/}
 
-            <ul style={{ listStyle: 'none', padding: 0 }}>
-                {tasks.map(task => (
-                    <li key={task.id} style={{
-                        borderBottom: '1px solid #ccc',
-                        padding: '0.5rem',
-                        display: 'flex',
-                        justifyContent: 'space-between'
-                    }}>
-                        <span>
-                            <strong>{task.title}</strong> - {task.title}
-                        </span>
-                        {/*<button onClick={() => deleteTask(task.id!)}>Delete</button>*/}
-                    </li>
-                ))}
-            </ul>
+            <TodoTaskTable
+                tasks={tasks}
+            />
         </div>
     );
 }
