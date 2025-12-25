@@ -1,10 +1,12 @@
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Swashbuckle.AspNetCore;
 using Todo.Data;
 using Todo.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 #region Database and Repositories
 
@@ -13,7 +15,6 @@ builder.Services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
 
 #endregion Database and Repositories
 
-builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -23,6 +24,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+        c.RoutePrefix = "swagger"; // This sets the URL to /swagger
+    });
 }
 
 DataSeeder.Seed(app);
