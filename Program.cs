@@ -1,13 +1,17 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore;
 using Todo.Data;
 using Todo.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+#region Database and Repositories
 
 builder.Services.AddDbContext<TodoDbContext>(options => options.UseInMemoryDatabase("TodoDatabase"));
 builder.Services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
+
+#endregion Database and Repositories
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
