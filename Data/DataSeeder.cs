@@ -4,6 +4,9 @@ using Todo.Models;
 
 namespace Todo.Data
 {
+    /// <summary>
+    /// Seeds the in-memory database with initial data.
+    /// </summary>
     public static class DataSeeder
     {
         public static void Seed(WebApplication app)
@@ -21,6 +24,9 @@ namespace Todo.Data
             }
         }
 
+        /// <summary>
+        /// Creates a list of sample TodoTasks with all combinations of status and priority.
+        /// </summary>
         private static List<TodoTask> CreateTasks()
         {
             var tasks = new List<TodoTask>();
