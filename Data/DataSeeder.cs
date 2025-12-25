@@ -30,21 +30,24 @@ namespace Todo.Data
         private static List<TodoTask> CreateTasks()
         {
             var tasks = new List<TodoTask>();
+            var now   = DateTime.Now;
 
             foreach (var taskStatus in Enum.GetValues<TodoStatus>())
             {
                 foreach (var todoTaskPriority in Enum.GetValues<TodoPriority>())
                 {
-                    var status   = taskStatus.GetType().GetField(taskStatus.ToString())?.GetCustomAttribute<DisplayAttribute>()?.Name ?? taskStatus.ToString();
+                    var status   = taskStatus.GetType().GetField(taskStatus      .ToString())?.GetCustomAttribute<DisplayAttribute>()?.Name ?? taskStatus      .ToString();
                     var priority = taskStatus.GetType().GetField(todoTaskPriority.ToString())?.GetCustomAttribute<DisplayAttribute>()?.Name ?? todoTaskPriority.ToString();
 
                     tasks.Add(new TodoTask
                     {
-                        Title       = $"Task - {status} - {priority}",
-                        Description = $"This is a {priority} priority task with status {status}.",
-                        DueDateTime = DateTime.UtcNow.AddDays((int)todoTaskPriority + 1),
-                        Status      = taskStatus,
-                        Priority    = todoTaskPriority
+                        Title              = $"Task - {status} - {priority}",
+                        Description        = $"This is a {priority} priority task with status {status}.",
+                        DueDateTime        = DateTime.UtcNow.AddDays((int)todoTaskPriority + 1),
+                        Status             = taskStatus,
+                        Priority           = todoTaskPriority,
+                        CreateDateTime     = now,
+                        LastUpdateDateTime = now
                     });
                 }
             }
