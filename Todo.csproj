@@ -12,4 +12,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>

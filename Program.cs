@@ -1,11 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using Todo.Data;
+using Todo.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddDbContext<TodoDbContext>(options => options.UseInMemoryDatabase("TodoDatabase"));
+builder.Services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
