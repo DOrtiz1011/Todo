@@ -21,5 +21,16 @@ namespace Todo.Repository
         {
             return await _todoDbContext.TodoTasks.FirstOrDefaultAsync(t => t.Id == id);
         }
+
+        public async Task AddAsync(TodoTask todoTask)
+        {
+            var now = DateTime.Now;
+
+            todoTask.CreateDateTime     = now;
+            todoTask.LastUpdateDateTime = now;
+
+            await _todoDbContext.TodoTasks.AddAsync(todoTask);
+            await _todoDbContext.SaveChangesAsync();
+        }
     }
 }

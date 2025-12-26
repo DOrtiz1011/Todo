@@ -36,5 +36,16 @@ namespace Todo.Controllers
 
             return Ok(task);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<TodoTask>> Create([FromBody] TodoTask task)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            await _todoTaskRepository.AddAsync(task);
+
+            // Returns 201 Created with the location of the new resource
+            return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
+        }
     }
 }

@@ -7,5 +7,7 @@ namespace Todo.Repository
         Task<T> GetByIdAsync(int id);
 
         Task<IEnumerable<T>> GetAllAsync();
+        
+        Task AddAsync(T t);
     }
 }
