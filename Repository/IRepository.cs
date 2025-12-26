@@ -9,5 +9,7 @@ namespace Todo.Repository
         Task<IEnumerable<T>> GetAllAsync();
         
         Task AddAsync(T t);
+
+        Task<bool> DeleteAsync(int id);
     }
 }

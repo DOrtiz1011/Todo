@@ -32,5 +32,20 @@ namespace Todo.Repository
             await _todoDbContext.TodoTasks.AddAsync(todoTask);
             await _todoDbContext.SaveChangesAsync();
         }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var todoTask = await GetByIdAsync(id);
+
+            if (todoTask != null)
+            {
+                _todoDbContext.TodoTasks.Remove(todoTask);
+                await _todoDbContext.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
+        }
     }
 }

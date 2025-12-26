@@ -47,5 +47,20 @@ namespace Todo.Controllers
             // Returns 201 Created with the location of the new resource
             return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTask(int id)
+        {
+            var deleted = await _todoTaskRepository.DeleteAsync(id);
+
+            if (deleted)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return NotFound(new { Message = $"Task with ID {id} not found." });
+            }
+        }
     }
 }
