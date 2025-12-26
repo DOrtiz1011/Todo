@@ -11,14 +11,14 @@ export const TodoTaskTable = ({ tasks/*, onDelete, onStatusChange*/ }: TodoTaskT
     return (
         <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
             <thead>
-                <tr style={{ backgroundColor: '#f4f4f4', textAlign: 'left' }}>
-                    <th style={cellStyle}>Title</th>
-                    <th style={cellStyle}>Description</th>
-                    <th style={cellStyle}>Priority</th>
-                    <th style={cellStyle}>Status</th>
-                    <th style={cellStyle}>Due Date</th>
-                    <th style={cellStyle}>Created</th>
-                    <th style={cellStyle}>Last Updated</th>
+                <tr style={{ backgroundColor: '#f4f4f4', textAlign: 'center', alignContent: 'center' }}>
+                    <th style={headerStyle}>Title</th>
+                    <th style={headerStyle}>Description</th>
+                    <th style={headerStyle}>Priority</th>
+                    <th style={headerStyle}>Status</th>
+                    <th style={headerStyle}>Due Date</th>
+                    <th style={headerStyle}>Created</th>
+                    <th style={headerStyle}>Last Updated</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +28,7 @@ export const TodoTaskTable = ({ tasks/*, onDelete, onStatusChange*/ }: TodoTaskT
                         <td style={cellStyle}>{task.description}</td>
                         <td style={cellStyle}>{task.priority}</td>
                         <td style={cellStyle}>{task.status}</td>
-                        <td style={cellStyle}>{task.duedatetime ? new Date(task.duedatetime).toLocaleDateString() : 'N/A'}</td>
+                        <td style={cellStyle}>{task.duedatetime && !isNaN(Date.parse(task.duedatetime.toString())) ? new Date(task.duedatetime).toLocaleDateString() : 'No Date Set'}</td>
                         <td style={cellStyle}>{new Date(task.createdatetime).toLocaleDateString()}</td>
                         <td style={cellStyle}>{new Date(task.lastupdatedatetime).toLocaleDateString()}</td>
                         {/*<td style={cellStyle}>*/}
@@ -44,6 +44,7 @@ export const TodoTaskTable = ({ tasks/*, onDelete, onStatusChange*/ }: TodoTaskT
     );
 };
 
-const cellStyle = { padding: '12px', border: '1px solid #ddd' };
+const headerStyle = { padding: '12px', border: '3px solid #ddd', backgroundColor: '#444444', alignContent: 'center' };
+const cellStyle = { padding: '12px', border: '1px solid #ddd', backgroundColor: '#000000' };
 
 export default TodoTaskTable;
