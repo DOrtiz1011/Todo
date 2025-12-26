@@ -10,7 +10,7 @@ interface CreateTaskProps {
 export const CreateTask = ({ onTaskCreated, onCancel }: CreateTaskProps) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    //const [priority, setPriority] = useState<TaskPriority>(TaskPriority.Medium);
+    const [priority, setPriority] = useState(0);
     const [dueDate, setDueDate] = useState('');
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -20,11 +20,11 @@ export const CreateTask = ({ onTaskCreated, onCancel }: CreateTaskProps) => {
         const newTask: TodoTask = {
             id: 0,
             title,
-            priority: 0,
+            priority,
             status: 0,
             createdatetime: new Date,
             duedatetime: new Date,
-            description: 'DESCRIPTION',
+            description,
             lastupdatedatetime: new Date
             // Convert empty string to undefined so C# handles it as null
             //duedatetime: dueDate ? new Date(dueDate).toISOString() : undefined,
@@ -53,7 +53,7 @@ export const CreateTask = ({ onTaskCreated, onCancel }: CreateTaskProps) => {
                 />
 
                 <label>Priority</label>
-                <select value='0' onChange={(e) => setPriority(Number(e.target.value))}>
+                <select value={priority} onChange={(e) => setPriority(Number(e.target.value))}>
                     <option value='0'>Low</option>
                     <option value='1'>Medium</option>
                     <option value='2'>High</option>
