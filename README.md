@@ -15,21 +15,25 @@ Build a small to-do task management API and frontend. This test evaluates:
 - Submit a GitHub repo link with both frontend and backend projects.
 - Add any features you feel are required for a Production MVP.
 
- [Swagger Test URL](https://localhost:7103/swagger/index.html)
+### Test API
 
- ### React Commands
+[Swagger Test URL](https://localhost:7103/swagger/index.html)
 
- Stop Node App
+[Local URL](http://localhost:5173/)
 
- ```powershell
- taskkill /f /im node.exe
- ```
+### React Commands
+
+Stop Node App
+
+```powershell
+taskkill /f /im node.exe
+```
 
 Install Node Moduels after a clean
 
 ```powershell
- npm install
- ```
+npm install
+```
 
 Run the React App
 
