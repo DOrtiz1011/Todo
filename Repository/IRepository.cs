@@ -11,5 +11,7 @@ namespace Todo.Repository
         Task AddAsync(T t);
 
         Task<bool> DeleteAsync(int id);
+
+        Task<bool> UpdateAsync(T t);
     }
 }

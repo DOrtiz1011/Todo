@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 using Todo.Models;
 
 namespace Todo.Repository
@@ -46,6 +47,23 @@ namespace Todo.Repository
             }
 
             return false;
+        }
+
+        public async Task<bool> UpdateAsync(TodoTask todoTask)
+        {
+            var exists = await _todoDbContext.TodoTasks.AsNoTracking().AnyAsync(t => t.Id == todoTask.Id);
+
+            if (!exists)
+            {
+                return false;
+            }
+
+            todoTask.LastUpdateDateTime = DateTime.Now;
+
+            _todoDbContext.TodoTasks.Update(todoTask);
+            await _todoDbContext.SaveChangesAsync();
+            
+            return true;
         }
     }
 }

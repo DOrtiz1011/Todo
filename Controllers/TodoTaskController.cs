@@ -62,5 +62,22 @@ namespace Todo.Controllers
                 return NotFound(new { Message = $"Task with ID {id} not found." });
             }
         }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] TodoTask todoTask)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var updated = await _todoTaskRepository.UpdateAsync(todoTask);
+
+            if (updated)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return NotFound(new { Message = $"Task with ID {todoTask.Id} not found." });
+            }
+        }
     }
 }
