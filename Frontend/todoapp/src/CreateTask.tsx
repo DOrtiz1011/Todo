@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-//import { TaskPriority } from '../src/types';
 import type { TodoTask } from '../src/types/TodoTask';
 
 interface CreateTaskProps {
@@ -26,8 +25,6 @@ export const CreateTask = ({ onTaskCreated, onCancel }: CreateTaskProps) => {
             duedatetime: new Date,
             description,
             lastupdatedatetime: new Date
-            // Convert empty string to undefined so C# handles it as null
-            //duedatetime: dueDate ? new Date(dueDate).toISOString() : undefined,
         };
 
         onTaskCreated(newTask);

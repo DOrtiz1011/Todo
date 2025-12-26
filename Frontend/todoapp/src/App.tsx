@@ -22,6 +22,11 @@ const App: React.FC = () => {
         fetchTasks();    // Refresh data
     };
 
+    const deleteTask = async (id: number) => {
+        await axios.delete(`${API_URL}/${id}`);
+        fetchTasks();
+    };
+
     useEffect(() => { fetchTasks(); }, []);
 
     return (
@@ -32,7 +37,7 @@ const App: React.FC = () => {
                     <button onClick={() => setView('create')} style={{ marginBottom: '10px' }}>
                         + Add New Task
                     </button>
-                    <TodoTaskTable tasks={tasks} />
+                    <TodoTaskTable tasks={tasks} onDelete={deleteTask} />
                 </>
             ) : (
                 <CreateTask

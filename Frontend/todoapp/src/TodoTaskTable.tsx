@@ -3,11 +3,11 @@ import type { TodoTask } from './types/TodoTask';
 
 interface TodoTaskTableProps {
     tasks: TodoTask[];
-    //onDelete: (id: number) => void;
-    //onStatusChange?: (task: TodoTask) => void;
+    onDelete: (id: number) => void;
+    onStatusChange?: (task: TodoTask) => void;
 }
 
-export const TodoTaskTable = ({ tasks/*, onDelete, onStatusChange*/ }: TodoTaskTableProps) => {
+export const TodoTaskTable = ({ tasks, onDelete, onStatusChange }: TodoTaskTableProps) => {
     return (
         <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
             <thead>
@@ -19,6 +19,7 @@ export const TodoTaskTable = ({ tasks/*, onDelete, onStatusChange*/ }: TodoTaskT
                     <th style={headerStyle}>Due Date</th>
                     <th style={headerStyle}>Created</th>
                     <th style={headerStyle}>Last Updated</th>
+                    <th style={headerStyle}>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,12 +32,12 @@ export const TodoTaskTable = ({ tasks/*, onDelete, onStatusChange*/ }: TodoTaskT
                         <td style={cellStyle}>{task.duedatetime && !isNaN(Date.parse(task.duedatetime.toString())) ? new Date(task.duedatetime).toLocaleDateString() : 'No Date Set'}</td>
                         <td style={cellStyle}>{new Date(task.createdatetime).toLocaleDateString()}</td>
                         <td style={cellStyle}>{new Date(task.lastupdatedatetime).toLocaleDateString()}</td>
-                        {/*<td style={cellStyle}>*/}
-                        {/*    <button onClick={() => onDelete(task.id!)}>Delete</button>*/}
-                        {/*    {onStatusChange && (*/}
-                        {/*        <button onClick={() => onStatusChange(task)}>Update Status</button>*/}
-                        {/*    )}*/}
-                        {/*</td>*/}
+                        <td style={cellStyle}>
+                            <button onClick={() => onDelete(task.id!)}>Delete</button>
+                            {/*{onStatusChange && (*/}
+                            {/*    <button onClick={() => onStatusChange(task)}>Update Status</button>*/}
+                            {/*)}*/}
+                        </td>
                     </tr>
                 ))}
             </tbody>
