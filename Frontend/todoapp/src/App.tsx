@@ -3,57 +3,43 @@ import './App.css'
 import type { TodoTask } from './types/TodoTask';
 import TodoTaskTable from './TodoTaskTable';
 import axios from 'axios';
+import { CreateTask } from './CreateTask';
 
-function App() {
+const API_URL = "https://localhost:7103/api/TodoTask";
+
+const App: React.FC = () => {
     const [tasks, setTasks] = useState<TodoTask[]>([]);
-    //const [title, setTitle] = useState('');
+    const [view, setView] = useState<'list' | 'create'>('list');
 
     const fetchTasks = async () => {
-        try {
-            const res = await axios.get<TodoTask[]>('https://localhost:7103/api/TodoTask');
-            setTasks(res.data);
-        } catch (err) {
-            console.error("Failed to fetch tasks", err);
-        }
+        const res = await axios.get(API_URL);
+        setTasks(res.data);
     };
 
-    //const addTask = async () => {
-    //    if (!title) return;
-    //    const newTask: TodoTask = {
-    //        title,
-    //        status: TaskStatus.Todo,
-    //        priority: TaskPriority.Medium
-    //    };
-    //    await axios.post(API_URL, newTask);
-    //    setTitle('');
-    //    fetchTasks();
-    //};
+    const handleCreateTask = async (task: TodoTask) => {
+        await axios.post(API_URL, task);
+        setView('list'); // Go back to list
+        fetchTasks();    // Refresh data
+    };
 
-    //const deleteTask = async (id: number) => {
-    //    await axios.delete(`${API_URL}/${id}`);
-    //    fetchTasks();
-    //};
-
-    useEffect(() => {
-        fetchTasks();
-    }, []);
+    useEffect(() => { fetchTasks(); }, []);
 
     return (
-        <div style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-            <h1>My To-Do List</h1>
-
-            {/*<div style={{ marginBottom: '1rem' }}>*/}
-            {/*    <input*/}
-            {/*        value={title}*/}
-            {/*        onChange={(e) => setTitle(e.target.value)}*/}
-            {/*        placeholder="New task name..."*/}
-            {/*    />*/}
-            {/*    <button onClick={addTask}>Add Task</button>*/}
-            {/*</div>*/}
-
-            <TodoTaskTable
-                tasks={tasks}
-            />
+        <div style={{ padding: '40px' }}>
+            {view === 'list' ? (
+                <>
+                    <h1>My Tasks</h1>
+                    <button onClick={() => setView('create')} style={{ marginBottom: '10px' }}>
+                        + Add New Task
+                    </button>
+                    <TodoTaskTable tasks={tasks} />
+                </>
+            ) : (
+                <CreateTask
+                    onTaskCreated={handleCreateTask}
+                    onCancel={() => setView('list')}
+                />
+            )}
         </div>
     );
 }
