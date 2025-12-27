@@ -1,17 +1,16 @@
 import type { TodoTask } from './types/TodoTask';
-//import { TaskStatus, TaskPriority } from './types';
 
 interface TodoTaskTableProps {
     tasks: TodoTask[];
     onDelete: (id: number) => void;
-    onStatusChange?: (task: TodoTask) => void;
+    onEdit: (task: TodoTask) => void;
 }
 
-export const TodoTaskTable = ({ tasks, onDelete, onStatusChange }: TodoTaskTableProps) => {
+export const TodoTaskTable = ({ tasks, onDelete, onEdit }: TodoTaskTableProps) => {
     return (
-        <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px', color: 'white' }}>
             <thead>
-                <tr style={{ backgroundColor: '#f4f4f4', textAlign: 'center', alignContent: 'center' }}>
+                <tr style={{ backgroundColor: '#444444', color: 'white' }}>
                     <th style={headerStyle}>Title</th>
                     <th style={headerStyle}>Description</th>
                     <th style={headerStyle}>Priority</th>
@@ -19,7 +18,7 @@ export const TodoTaskTable = ({ tasks, onDelete, onStatusChange }: TodoTaskTable
                     <th style={headerStyle}>Due Date</th>
                     <th style={headerStyle}>Created</th>
                     <th style={headerStyle}>Last Updated</th>
-                    <th style={headerStyle}>Delete</th>
+                    <th style={headerStyle}>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,14 +28,18 @@ export const TodoTaskTable = ({ tasks, onDelete, onStatusChange }: TodoTaskTable
                         <td style={cellStyle}>{task.description}</td>
                         <td style={cellStyle}>{task.priority}</td>
                         <td style={cellStyle}>{task.status}</td>
-                        <td style={cellStyle}>{task.duedatetime && !isNaN(Date.parse(task.duedatetime.toString())) ? new Date(task.duedatetime).toLocaleDateString() : 'No Date Set'}</td>
+                        <td style={cellStyle}>
+                            {task.duedatetime && !isNaN(Date.parse(task.duedatetime.toString()))
+                                ? new Date(task.duedatetime).toLocaleDateString()
+                                : 'No Date Set'}
+                        </td>
                         <td style={cellStyle}>{new Date(task.createdatetime).toLocaleDateString()}</td>
                         <td style={cellStyle}>{new Date(task.lastupdatedatetime).toLocaleDateString()}</td>
                         <td style={cellStyle}>
-                            <button onClick={() => onDelete(task.id!)}>Delete</button>
-                            {/*{onStatusChange && (*/}
-                            {/*    <button onClick={() => onStatusChange(task)}>Update Status</button>*/}
-                            {/*)}*/}
+                            <div style={{ display: 'flex', gap: '5px' }}>
+                                <button onClick={() => onEdit(task)} style={editButtonStyle}>Update</button>
+                                <button onClick={() => onDelete(task.id)} style={deleteButtonStyle}>Delete</button>
+                            </div>
                         </td>
                     </tr>
                 ))}
@@ -45,7 +48,10 @@ export const TodoTaskTable = ({ tasks, onDelete, onStatusChange }: TodoTaskTable
     );
 };
 
-const headerStyle = { padding: '12px', border: '3px solid #ddd', backgroundColor: '#444444', alignContent: 'center' };
-const cellStyle = { padding: '12px', border: '1px solid #ddd', backgroundColor: '#000000' };
+// Styles
+const headerStyle: React.CSSProperties = { padding: '12px', border: '1px solid #ddd', textAlign: 'left' };
+const cellStyle: React.CSSProperties = { padding: '12px', border: '1px solid #ddd', backgroundColor: '#1a1a1a', color: 'white' };
+const editButtonStyle = { backgroundColor: '#007bff', color: 'white', border: 'none', padding: '5px 10px', cursor: 'pointer', borderRadius: '4px' };
+const deleteButtonStyle = { backgroundColor: '#dc3545', color: 'white', border: 'none', padding: '5px 10px', cursor: 'pointer', borderRadius: '4px' };
 
 export default TodoTaskTable;
