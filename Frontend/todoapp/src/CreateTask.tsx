@@ -10,6 +10,7 @@ export const CreateTask = ({ onTaskCreated, onCancel }: CreateTaskProps) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [priority, setPriority] = useState(0);
+    const [status, setStatus] = useState(0);
     const [dueDate, setDueDate] = useState('');
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -20,7 +21,7 @@ export const CreateTask = ({ onTaskCreated, onCancel }: CreateTaskProps) => {
             id: 0,
             title,
             priority,
-            status: 0,
+            status,
             createdatetime: new Date,
             duedatetime: new Date,
             description,
@@ -54,6 +55,15 @@ export const CreateTask = ({ onTaskCreated, onCancel }: CreateTaskProps) => {
                     <option value='0'>Low</option>
                     <option value='1'>Medium</option>
                     <option value='2'>High</option>
+                </select>
+
+                <label>Status</label>
+                <select value={status} onChange={(e) => setStatus(Number(e.target.value))}>
+                    <option value='0'>Not Started</option>
+                    <option value='1'>In Progress</option>
+                    <option value='2'>Completed</option>
+                    <option value='3'>Blocked</option>
+                    <option value='4'>Cancelled</option>
                 </select>
 
                 <label>Due Date (Optional)</label>
