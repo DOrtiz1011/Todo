@@ -15,11 +15,31 @@ Build a small to-do task management API and frontend. This test evaluates:
 - Submit a GitHub repo link with both frontend and backend projects.
 - Add any features you feel are required for a Production MVP.
 
+## How to Run the App
+
+Run backend from the root directory of the repo
+
+```powershell
+dotnet run
+```
+
+Build and run React frontend in a separate powershell
+
+```powershell
+cd .\Frontend\todoapp\
+npm install
+npm run dev
+```
+
+The app will launch with test data created.
+
+![My Todos](image.png)
+
 ### Test API
 
 [Swagger Test URL](https://localhost:7103/swagger/index.html)
 
-[Local URL](http://localhost:5173/)
+[Local URL for Frontend](http://localhost:5173/)
 
 ### React Commands
 
@@ -40,3 +60,11 @@ Run the React App
 ```powershell
 npm run dev
 ```
+
+## Future Enhancements
+
+Add a table, repository, and controller for notes on a task. [TableBase.cs](.\Models\TableBase.cs) is uesed to define the columns that all tables require. It is also used in [IRepository.cs](.\Repository\IRepository.cs) in a generic `where` clause to ensure that all tables inherit from `TableBase` when implementing the interface.
+
+Implement tempral tables for audit logging. Logging should be by design and not full dependant on the engineer wrting logging code.
+
+Add the ablity to assign a user to a task. Add a table, repository, and controller for users.
