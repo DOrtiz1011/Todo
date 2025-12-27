@@ -2,6 +2,10 @@
 
 namespace Todo.Repository
 {
+    /// <summary>
+    /// Defines the basic CRUD operations for all repos. This uses a generic to enforce that all models inherit from TableBase.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IRepository<T> where T : TableBase
     {
         Task<T> GetByIdAsync(int id);

@@ -4,6 +4,9 @@ using Todo.Repository;
 
 namespace Todo.Controllers
 {
+    /// <summary>
+    /// Controller for Task API. Directs request to repository methods
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class TodoTaskController : Controller

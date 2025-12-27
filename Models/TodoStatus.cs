@@ -2,6 +2,9 @@
 
 namespace Todo.Models
 {
+    /// <summary>
+    /// Defines the statuses a task can have.
+    /// </summary>
     public enum TodoStatus
     {
         [Display(Name = "Not Started")]

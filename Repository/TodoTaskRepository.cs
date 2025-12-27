@@ -3,6 +3,9 @@ using Todo.Models;
 
 namespace Todo.Repository
 {
+    /// <summary>
+    /// Task repository for CRUD operations
+    /// </summary>
     public class TodoTaskRepository : ITodoTaskRepository
     {
         private readonly TodoDbContext _todoDbContext;

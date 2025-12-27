@@ -2,6 +2,9 @@
 
 namespace Todo.Models
 {
+    /// <summary>
+    /// Defines the minimum required fields for a database table. All tables must inherit from this class
+    /// </summary>
     public class TableBase
     {
         [Key]

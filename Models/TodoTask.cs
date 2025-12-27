@@ -2,6 +2,9 @@
 
 namespace Todo.Models
 {
+    /// <summary>
+    /// Defines the task object
+    /// </summary>
     public class TodoTask : TableBase
     {
         [Required (   ErrorMessage = "Title is required")]
