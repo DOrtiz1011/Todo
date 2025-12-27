@@ -68,3 +68,9 @@ Add a table, repository, and controller for notes on a task. [TableBase.cs](.\Mo
 Implement tempral tables for audit logging. Logging should be by design and not full dependant on the engineer wrting logging code.
 
 Add the ablity to assign a user to a task. Add a table, repository, and controller for users.
+
+Fix the display of dates on the frontend. The dates are properly being saved to the database but are not translating from C# `DataTime` to JavaScript `Date`.
+
+Add unit tests and code coverage.
+
+Implement Specflow tests to run the app and mimic a user using the app.
