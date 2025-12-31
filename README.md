@@ -104,5 +104,3 @@ Sortable columns
 Pagination
 
 Store to keep track of data and not fully reload table on every action.
-
-Fix the display of dates on the frontend. The dates are properly being saved to the database but are not translating from C# `DataTime` to JavaScript `Date`.
