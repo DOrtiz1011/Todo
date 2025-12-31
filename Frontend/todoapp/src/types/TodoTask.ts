@@ -1,10 +1,10 @@
 export interface TodoTask {
     id: number;
-    createdatetime: Date;
-    lastupdatedatetime: Date;
+    createdatetime: string; // Dates from JSON are strings until parsed
+    lastupdatedatetime: string;
     title: string;
     description: string;
-    duedatetime: Date;
-    status: number;
-    priority: number;
+    duedatetime: string;
+    status: string;   // Changed from number
+    priority: string; // Changed from number
 }

@@ -52,18 +52,18 @@ export const CreateTask = ({ onTaskCreated, onCancel }: CreateTaskProps) => {
 
                 <label>Priority</label>
                 <select value={priority} onChange={(e) => setPriority(Number(e.target.value))}>
-                    <option value='0'>Low</option>
-                    <option value='1'>Medium</option>
-                    <option value='2'>High</option>
+                    <option value='Low'>Low</option>
+                    <option value='Medium'>Medium</option>
+                    <option value='High'>High</option>
                 </select>
 
                 <label>Status</label>
                 <select value={status} onChange={(e) => setStatus(Number(e.target.value))}>
-                    <option value='0'>Not Started</option>
-                    <option value='1'>In Progress</option>
-                    <option value='2'>Completed</option>
-                    <option value='3'>Blocked</option>
-                    <option value='4'>Cancelled</option>
+                    <option value='NotStarted'>Not Started</option>
+                    <option value='In Progress'>In Progress</option>
+                    <option value='Completed'>Completed</option>
+                    <option value='Blocked'>Blocked</option>
+                    <option value='Cancelled'>Cancelled</option>
                 </select>
 
                 <label>Due Date (Optional)</label>

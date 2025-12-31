@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Todo.DTO;
 using Todo.Models;
 using Todo.Repository;
 
@@ -12,43 +14,50 @@ namespace Todo.Controllers
     public class TodoTaskController : Controller
     {
         private readonly ITodoTaskRepository _todoTaskRepository;
+        private readonly IMapper             _mapper;
 
-        public TodoTaskController(ITodoTaskRepository todoTaskRepository)
+        public TodoTaskController(ITodoTaskRepository todoTaskRepository, IMapper mapper)
         {
             _todoTaskRepository = todoTaskRepository;
+            _mapper             = mapper;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<TodoTaskResponseDTO>>> GetAllAsync()
         {
-            var tasks = await _todoTaskRepository.GetAllAsync();
+            var todoTasks           = await _todoTaskRepository.GetAllAsync();
+            var todoTaskResponseDTO = _mapper.Map<IEnumerable<TodoTaskResponseDTO>>(todoTasks);
 
-            return Ok(tasks);
+            return Ok(todoTaskResponseDTO);
         }
         
         // GET: api/tasks/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TodoTask>> GetById(int id)
+        public async Task<ActionResult<TodoTaskResponseDTO>> GetById(int id)
         {
-            var task = await _todoTaskRepository.GetByIdAsync(id);
+            var todoTask = await _todoTaskRepository.GetByIdAsync(id);
 
-            if (task == null)
+            if (todoTask == null)
             {
                 return NotFound(new { Message = $"Task with ID {id} not found." });
             }
 
-            return Ok(task);
+            var todoTaskResponseDTO = _mapper.Map<TodoTaskResponseDTO>(todoTask);
+
+            return Ok(todoTaskResponseDTO);
         }
 
         [HttpPost]
-        public async Task<ActionResult<TodoTask>> Create([FromBody] TodoTask task)
+        public async Task<ActionResult<TodoTaskResponseDTO>> Create([FromBody] TodoTaskRequestDTO todoTaskRequestDTO)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var todoTask = _mapper.Map<TodoTask>(todoTaskRequestDTO);
 
-            await _todoTaskRepository.AddAsync(task);
+            await _todoTaskRepository.AddAsync(todoTask);
+
+            var todoTaskResponseDTO = _mapper.Map<TodoTaskResponseDTO>(todoTask);
 
             // Returns 201 Created with the location of the new resource
-            return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
+            return CreatedAtAction(nameof(GetById), new { todoTaskResponseDTO.id }, todoTaskResponseDTO);
         }
 
         [HttpDelete("{id}")]
@@ -67,9 +76,9 @@ namespace Todo.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] TodoTask todoTask)
+        public async Task<IActionResult> Update([FromBody] TodoTaskRequestDTO todoTaskRequestDTO)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var todoTask = _mapper.Map<TodoTask>(todoTaskRequestDTO);
 
             var updated = await _todoTaskRepository.UpdateAsync(todoTask);
 

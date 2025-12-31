@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Text.Json.Serialization;
 using Todo.Data;
+using Todo.DTO;
 using Todo.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,6 +37,8 @@ builder.Services.AddDbContext<TodoDbContext>(options => options.UseSqlite(connec
 builder.Services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
 
 #endregion Database and Repositories
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();

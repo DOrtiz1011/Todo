@@ -10,8 +10,8 @@ interface TaskFormProps {
 export const TaskForm = ({ initialData, onSave, onCancel }: TaskFormProps) => {
     const [title, setTitle] = useState(initialData?.title || '');
     const [description, setDescription] = useState(initialData?.description || '');
-    const [status, setStatus] = useState(initialData?.status ?? 0);
-    const [priority, setPriority] = useState(initialData?.priority ?? 0);
+    const [status, setStatus] = useState(initialData?.status ?? 'NotStarted');
+    const [priority, setPriority] = useState(initialData?.priority ?? 'Low');
 
     // Format Date for the input (YYYY-MM-DDTHH:mm)
     const formatForInput = (date?: Date | string) => {
@@ -48,14 +48,14 @@ export const TaskForm = ({ initialData, onSave, onCancel }: TaskFormProps) => {
             <textarea value={description} onChange={e => setDescription(e.target.value)} />
 
             <label>Priority</label>
-            <select value={priority} onChange={(e) => setPriority(Number(e.target.value))}>
+            <select value={priority} onChange={(e) => setPriority(e.target.value)}>
                 <option value='0'>Low</option>
                 <option value='1'>Medium</option>
                 <option value='2'>High</option>
             </select>
 
             <label>Status</label>
-            <select value={status} onChange={(e) => setStatus(Number(e.target.value))}>
+            <select value={status} onChange={(e) => setStatus(e.target.value)}>
                 <option value='0'>Not Started</option>
                 <option value='1'>In Progress</option>
                 <option value='2'>Completed</option>
