@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using Todo.Models;
+using Todo.APi.Models;
 
-namespace Todo.Data
+namespace Todo.APi.Data
 {
     /// <summary>
     /// Seeds the in-memory database with initial data.

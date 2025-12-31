@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Todo.Models
+namespace Todo.APi.Models
 {
     /// <summary>
     /// Defines the minimum required fields for a database table. All tables must inherit from this class

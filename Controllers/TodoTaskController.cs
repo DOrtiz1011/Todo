@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Todo.DTO;
-using Todo.Models;
-using Todo.Repository;
+using Todo.APi.DTO;
+using Todo.APi.Models;
+using Todo.APi.Repository;
 
-namespace Todo.Controllers
+namespace Todo.APi.Controllers
 {
     /// <summary>
     /// Controller for Task API. Directs request to repository methods

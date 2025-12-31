@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Text.Json.Serialization;
-using Todo.Data;
-using Todo.DTO;
-using Todo.Repository;
+using Todo.APi.Data;
+using Todo.APi.DTO;
+using Todo.APi.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 

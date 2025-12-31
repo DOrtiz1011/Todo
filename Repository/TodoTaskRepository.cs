@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Todo.Models;
+using Todo.APi.Models;
 
-namespace Todo.Repository
+namespace Todo.APi.Repository
 {
     /// <summary>
     /// Task repository for CRUD operations

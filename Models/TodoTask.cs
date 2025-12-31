@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Todo.Models
+namespace Todo.APi.Models
 {
     /// <summary>
     /// Defines the task object

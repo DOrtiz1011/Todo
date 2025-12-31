@@ -1,4 +1,4 @@
-﻿namespace Todo.Models
+﻿namespace Todo.APi.Models
 {
     /// <summary>
     /// Defines the priority levels

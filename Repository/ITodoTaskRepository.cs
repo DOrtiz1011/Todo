@@ -1,6 +1,6 @@
-﻿using Todo.Models;
+﻿using Todo.APi.Models;
 
-namespace Todo.Repository
+namespace Todo.APi.Repository
 {
     /// <summary>
     /// Interface for the task repository
