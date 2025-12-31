@@ -27,7 +27,7 @@ namespace Todo.Repository
 
         public async Task AddAsync(TodoTask todoTask)
         {
-            var now = DateTime.Now;
+            var now = DateTime.UtcNow;
 
             todoTask.CreateDateTime     = now;
             todoTask.LastUpdateDateTime = now;
@@ -60,7 +60,7 @@ namespace Todo.Repository
                 return false;
             }
 
-            todoTask.LastUpdateDateTime = DateTime.Now;
+            todoTask.LastUpdateDateTime = DateTime.UtcNow;
 
             _todoDbContext.TodoTasks.Update(todoTask);
             await _todoDbContext.SaveChangesAsync();

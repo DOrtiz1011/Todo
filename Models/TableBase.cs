@@ -7,11 +7,20 @@ namespace Todo.Models
     /// </summary>
     public class TableBase
     {
+        /// <summary>
+        /// Primary Key
+        /// </summary>
         [Key]
-        public int      Id                 { get; set; }
+        public int Id { get; set; }        
+
+        /// <summary>
+        /// Date the record was created in UTC
+        /// </summary>
+        public DateTime CreateDateTime { get; set; }
         
-        public DateTime CreateDateTime     { get; set; }
-        
+        /// <summary>
+        /// Date the record was last created in UTC
+        /// </summary>
         public DateTime LastUpdateDateTime { get; set; }
     }
 }

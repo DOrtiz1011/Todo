@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Text.Json.Serialization;
 using Todo.Data;
 using Todo.Repository;
@@ -28,7 +29,10 @@ builder.Services.AddSwaggerGen();
 
 #region Database and Repositories
 
-builder.Services.AddDbContext<TodoDbContext>(options => options.UseInMemoryDatabase("TodoDatabase"));
+var connectionString = "Data Source=TodoDatabase.db";
+
+builder.Services.AddDbContext<TodoDbContext>(opt => opt.UseSqlite(connectionString));
+
 builder.Services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
 
 #endregion Database and Repositories
