@@ -41,15 +41,15 @@ npm run dev
 
 The app will launch with test data created.
 
-![My Todos](image.png)
-
-### Test API
-
-[Swagger Test URL](https://localhost:7103/swagger/index.html)
-
 [Local URL for Frontend](http://localhost:5173/)
 
-### React Commands
+![My Todos](image-1.png)
+
+## Test API
+
+Once the backend is running, you can test the API with [Swagger](https://localhost:7103/swagger/index.html)
+
+## React Commands
 
 Stop Node App
 
@@ -67,6 +67,20 @@ Run the React App
 
 ```powershell
 npm run dev
+```
+
+## Database Commands
+
+Add migration
+
+```powershell
+dotnet ef migrations add MIGRATION_NAME
+```
+
+Apply migrations
+
+```powershell
+dotnet ef database update
 ```
 
 ## Future Enhancements
