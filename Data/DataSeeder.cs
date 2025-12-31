@@ -41,12 +41,23 @@ namespace Todo.Data
 
                     tasks.Add(new TodoTask
                     {
-                        Title              = $"Task - {status} - {priority}",
+                        Title              = $"Sample Task - {status} - {priority}",
                         Description        = $"This is a {priority} priority task with status {status}.",
                         DueDateTime        = DateTime.UtcNow.AddDays((int)todoTaskPriority + 1),
                         Status             = taskStatus,
                         Priority           = todoTaskPriority,
                         CreateDateTime     = now,
+                        LastUpdateDateTime = now
+                    });
+
+                    tasks.Add(new TodoTask
+                    {
+                        Title = $"Sample Task - {status} - {priority}",
+                        Description = $"This is a {priority} priority task with status {status}.",
+                        DueDateTime = null,
+                        Status = taskStatus,
+                        Priority = todoTaskPriority,
+                        CreateDateTime = now,
                         LastUpdateDateTime = now
                     });
                 }
