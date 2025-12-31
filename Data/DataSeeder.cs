@@ -36,14 +36,16 @@ namespace Todo.Data
             {
                 foreach (var todoTaskPriority in Enum.GetValues<TodoPriority>())
                 {
-                    var status   = taskStatus.GetType().GetField(taskStatus      .ToString())?.GetCustomAttribute<DisplayAttribute>()?.Name ?? taskStatus      .ToString();
-                    var priority = taskStatus.GetType().GetField(todoTaskPriority.ToString())?.GetCustomAttribute<DisplayAttribute>()?.Name ?? todoTaskPriority.ToString();
+                    var status      = taskStatus.GetType().GetField(taskStatus      .ToString())?.GetCustomAttribute<DisplayAttribute>()?.Name ?? taskStatus      .ToString();
+                    var priority    = taskStatus.GetType().GetField(todoTaskPriority.ToString())?.GetCustomAttribute<DisplayAttribute>()?.Name ?? todoTaskPriority.ToString();
+                    var title       = $"Sample Task - {status} - {priority}";
+                    var description = $"This is a {priority} priority task with status {status}.";
 
                     tasks.Add(new TodoTask
                     {
-                        Title              = $"Sample Task - {status} - {priority}",
-                        Description        = $"This is a {priority} priority task with status {status}.",
-                        DueDateTime        = DateTime.UtcNow.AddDays((int)todoTaskPriority + 1),
+                        Title              = title,
+                        Description        = description,
+                        DueDateTime        = DateTime.UtcNow.AddDays((int)taskStatus + 1),
                         Status             = taskStatus,
                         Priority           = todoTaskPriority,
                         CreateDateTime     = now,
@@ -52,12 +54,12 @@ namespace Todo.Data
 
                     tasks.Add(new TodoTask
                     {
-                        Title = $"Sample Task - {status} - {priority}",
-                        Description = $"This is a {priority} priority task with status {status}.",
-                        DueDateTime = null,
-                        Status = taskStatus,
-                        Priority = todoTaskPriority,
-                        CreateDateTime = now,
+                        Title              = title,
+                        Description        = description,
+                        DueDateTime        = null,
+                        Status             = taskStatus,
+                        Priority           = todoTaskPriority,
+                        CreateDateTime     = now,
                         LastUpdateDateTime = now
                     });
                 }
