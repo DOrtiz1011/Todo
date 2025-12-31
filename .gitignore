@@ -55,3 +55,8 @@ TestResult.xml
 nunit-*.xml
 
 .vs/
+
+# SQLite databases
+*.db
+*.db-shm
+*.db-wal
