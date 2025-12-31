@@ -29,9 +29,9 @@ builder.Services.AddSwaggerGen();
 
 #region Database and Repositories
 
-var connectionString = "Data Source=TodoDatabase.db";
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=todos.db";
 
-builder.Services.AddDbContext<TodoDbContext>(opt => opt.UseSqlite(connectionString));
+builder.Services.AddDbContext<TodoDbContext>(options => options.UseSqlite(connectionString));
 
 builder.Services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
 

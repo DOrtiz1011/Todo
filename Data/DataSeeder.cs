@@ -30,7 +30,7 @@ namespace Todo.Data
         private static List<TodoTask> CreateTasks()
         {
             var tasks = new List<TodoTask>();
-            var now   = DateTime.Now;
+            var now   = DateTime.UtcNow;
 
             foreach (var taskStatus in Enum.GetValues<TodoStatus>())
             {

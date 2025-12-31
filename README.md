@@ -17,7 +17,15 @@ Build a small to-do task management API and frontend. This test evaluates:
 
 ## How to Run the App
 
-Run backend from the root directory of the repo
+Run powershell at the root of the repositpry
+
+Setup the database
+
+```powershell
+dotnet ef database update
+```
+
+Run backend
 
 ```powershell
 dotnet run
