@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Todo.APi.DTO;
-using Todo.APi.Models;
-using Todo.APi.Repository;
+using Todo.APi.Service;
 
 namespace Todo.APi.Controllers
 {
@@ -13,36 +11,31 @@ namespace Todo.APi.Controllers
     [Route("api/[controller]")]
     public class TodoTaskController : Controller
     {
-        private readonly ITodoTaskRepository _todoTaskRepository;
-        private readonly IMapper             _mapper;
+        private readonly ITodoService _todoService;
 
-        public TodoTaskController(ITodoTaskRepository todoTaskRepository, IMapper mapper)
+        public TodoTaskController(ITodoService todoService)
         {
-            _todoTaskRepository = todoTaskRepository;
-            _mapper             = mapper;
+            _todoService = todoService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TodoTaskResponseDTO>>> GetAllAsync()
         {
-            var todoTasks           = await _todoTaskRepository.GetAllAsync();
-            var todoTaskResponseDTO = _mapper.Map<IEnumerable<TodoTaskResponseDTO>>(todoTasks);
+            var todoTaskResponseDTOs = await _todoService.GetAllTasks();
 
-            return Ok(todoTaskResponseDTO);
+            return Ok(todoTaskResponseDTOs);
         }
         
         // GET: api/tasks/5
         [HttpGet("{id}")]
         public async Task<ActionResult<TodoTaskResponseDTO>> GetById(int id)
         {
-            var todoTask = await _todoTaskRepository.GetByIdAsync(id);
+            var todoTaskResponseDTO = await _todoService.GetTaskById(id);
 
-            if (todoTask == null)
+            if (todoTaskResponseDTO == null)
             {
                 return NotFound(new { Message = $"Task with ID {id} not found." });
             }
-
-            var todoTaskResponseDTO = _mapper.Map<TodoTaskResponseDTO>(todoTask);
 
             return Ok(todoTaskResponseDTO);
         }
@@ -50,11 +43,7 @@ namespace Todo.APi.Controllers
         [HttpPost]
         public async Task<ActionResult<TodoTaskResponseDTO>> Create([FromBody] TodoTaskRequestDTO todoTaskRequestDTO)
         {
-            var todoTask = _mapper.Map<TodoTask>(todoTaskRequestDTO);
-
-            await _todoTaskRepository.AddAsync(todoTask);
-
-            var todoTaskResponseDTO = _mapper.Map<TodoTaskResponseDTO>(todoTask);
+            var todoTaskResponseDTO = await _todoService.CreateTask(todoTaskRequestDTO);
 
             // Returns 201 Created with the location of the new resource
             return CreatedAtAction(nameof(GetById), new { todoTaskResponseDTO.id }, todoTaskResponseDTO);
@@ -63,7 +52,7 @@ namespace Todo.APi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTask(int id)
         {
-            var deleted = await _todoTaskRepository.DeleteAsync(id);
+            var deleted = await _todoService.DeleteTask(id);
 
             if (deleted)
             {
@@ -78,9 +67,7 @@ namespace Todo.APi.Controllers
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] TodoTaskRequestDTO todoTaskRequestDTO)
         {
-            var todoTask = _mapper.Map<TodoTask>(todoTaskRequestDTO);
-
-            var updated = await _todoTaskRepository.UpdateAsync(todoTask);
+            var updated = await _todoService.UpdateTask(todoTaskRequestDTO);
 
             if (updated)
             {
@@ -88,7 +75,7 @@ namespace Todo.APi.Controllers
             }
             else
             {
-                return NotFound(new { Message = $"Task with ID {todoTask.Id} not found." });
+                return NotFound(new { Message = $"Task with ID {todoTaskRequestDTO.id} not found." });
             }
         }
     }

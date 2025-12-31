@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 using Todo.APi.Data;
 using Todo.APi.DTO;
 using Todo.APi.Repository;
+using Todo.APi.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,8 @@ builder.Services.AddDbContext<TodoDbContext>(options => options.UseSqlite(connec
 builder.Services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
 
 #endregion Database and Repositories
+
+builder.Services.AddScoped<ITodoService, TodoService>(); 
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
