@@ -1,12 +1,14 @@
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi;
 using Serilog;
+using System.Reflection;
 using System.Text.Json.Serialization;
 using Todo.APi.Data;
 using Todo.APi.DTO;
 using Todo.APi.Middleware;
 using Todo.APi.Repository;
 using Todo.APi.Service;
-using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,6 +69,27 @@ builder.Services.AddValidatorsFromAssemblyContaining<TodoTaskRequestDTO>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version     = "v1",
+        Title       = "Todo App",
+        Description = "A simple Todo App",
+        Contact     = new OpenApiContact
+        {
+            Name  = "Daniel Ortiz",
+            Email = "DOrtiz1011@gmail.com",
+            Url   = new Uri("https://github.com/DOrtiz1011/Todo"),            
+        }
+    });
+
+    // Feed the XML comments into Swagger
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+});
 
 var app = builder.Build();
 
