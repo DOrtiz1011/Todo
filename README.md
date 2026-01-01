@@ -17,24 +17,22 @@ Build a small to-do task management API and frontend. This test evaluates:
 
 ## How to Run the App
 
-Run powershell at the root of the repositpry
-
-Setup the database
+### Run the Backend
 
 ```powershell
-dotnet ef database update
+# Run powershell at the root of the repositpry
+
+dotnet build              # build the backend
+cd .\Todo.Api\            # Change to the Todo.Api directory
+dotnet ef database update # Setup the database
+dotnet run                # Run backend
 ```
 
-Run backend
+### Run the React Frontend
 
 ```powershell
-dotnet run
-```
-
-Build and run React frontend in a separate powershell
-
-```powershell
-cd .\Frontend\todoapp\
+# from the root of the repository goto the frontend\todoapp directory
+cd .\Todo.Api\Frontend\todoapp\
 npm install
 npm run dev
 ```
@@ -51,22 +49,10 @@ Once the backend is running, you can test the API with [Swagger](https://localho
 
 ## React Commands
 
-Stop Node App
+Stop and restart the React app
 
 ```powershell
-taskkill /f /im node.exe
-```
-
-Install Node Moduels after a clean
-
-```powershell
-npm install
-```
-
-Run the React App
-
-```powershell
-npm run dev
+taskkill /f /im node.exe; npm install; npm run dev
 ```
 
 ## Database Commands
@@ -87,20 +73,12 @@ dotnet ef database update
 
 ### Backend
 
-Add a table, repository, and controller for notes on a task. [TableBase.cs](\Models\TableBase.cs) is uesed to define the columns that all tables require. It is also used in [IRepository.cs](\Repository\IRepository.cs) in a generic `where` clause to ensure that all tables inherit from `TableBase` when implementing the interface.
-
-Implement tempral tables for audit logging. Logging should be by design and not full dependant on the engineer wrting logging code.
-
-Add the ablity to assign a user to a task. Add a table, repository, and controller for users.
-
-Add unit tests and code coverage.
-
-Implement integration tests to run the app and mimic a user using the app.
+- Add a table, repository, and controller for notes on a task. [TableBase.cs](\Models\TableBase.cs) is uesed to define the columns that all tables require. It is also used in [IRepository.cs](\Repository\IRepository.cs) in a generic `where` clause to ensure that all tables inherit from `TableBase` when implementing the interface.
+- Implement tempral tables for audit logging. Logging should be by design and not full dependant on the engineer wrting logging code.
+- Add the ablity to assign a user to a task. Add a table, repository, and controller for users.
 
 ### Frontend
 
-Sortable columns
-
-Pagination
-
-Store to keep track of data and not fully reload table on every action.
+- Sortable columns
+- Pagination
+- Store to keep track of data and not fully reload table on every action.
