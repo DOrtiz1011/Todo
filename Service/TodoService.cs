@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Todo.APi.DTO;
+using Todo.APi.Exceptions;
 using Todo.APi.Models;
 using Todo.APi.Repository;
 
@@ -26,19 +27,25 @@ namespace Todo.APi.Service
 
         public async Task<TodoTaskResponseDTO> GetTaskById(int id)
         {
-            var todoTaskResponseDTO = default(TodoTaskResponseDTO);
-            var todoTask            = await _todoTaskRepository.GetByIdAsync(id);
+            var todoTask = await _todoTaskRepository.GetByIdAsync(id);
 
-            if (todoTask != null)
+            if (todoTask == null)
             {
-                todoTaskResponseDTO = _mapper.Map<TodoTaskResponseDTO>(todoTask);
-            }            
+                throw new NotFoundException("TodoTask", id);
+            }
+
+            var todoTaskResponseDTO = _mapper.Map<TodoTaskResponseDTO>(todoTask);
 
             return todoTaskResponseDTO;
         }
 
         public async Task<TodoTaskResponseDTO> CreateTask(TodoTaskRequestDTO todoTaskRequestDTO)
         {
+            if (string.IsNullOrWhiteSpace(todoTaskRequestDTO.title))
+            {
+                throw new ValidationException("Task title cannot be empty.");
+            }
+
             var todoTask = _mapper.Map<TodoTask>(todoTaskRequestDTO);
 
             await _todoTaskRepository.AddAsync(todoTask);

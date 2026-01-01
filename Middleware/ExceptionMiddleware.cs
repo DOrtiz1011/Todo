@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json;
 using Todo.APi.DTO;
+using Todo.APi.Exceptions;
 
 namespace Todo.APi.Middleware
 {
@@ -30,22 +31,31 @@ namespace Todo.APi.Middleware
             }
         }
 
-        private async Task HandleExceptionAsync(HttpContext context, Exception ex)
+        private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
         {
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode  = (int)HttpStatusCode.InternalServerError;
+            httpContext.Response.ContentType = "application/json";
+            httpContext.Response.StatusCode  = (int)HttpStatusCode.InternalServerError;
 
-            var response = new ErrorResponse
+            if (exception is ExceptionBase exceptionBase)
             {
-                StatusCode = context.Response.StatusCode,
-                Message    = "An unexpected error occurred on the server.",
-                Details    = _hostEnvironment.IsDevelopment() ? ex.StackTrace?.ToString() : null
+                httpContext.Response.StatusCode = (int)exceptionBase.StatusCode;
+            }
+            else
+            {
+                httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            }
+
+            var errorResponse = new ErrorResponse
+            {
+                StatusCode = httpContext.Response.StatusCode,
+                Message    = exception.Message,
+                Details    = _hostEnvironment.IsDevelopment() ? exception.StackTrace?.ToString() : null
             };
 
-            var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-            var json    = JsonSerializer.Serialize(response, options);
+            var jsonSerializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+            var json                  = JsonSerializer.Serialize(errorResponse, jsonSerializerOptions);
 
-            await context.Response.WriteAsync(json);
+            await httpContext.Response.WriteAsync(json);
         }
     }
 
