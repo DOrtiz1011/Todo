@@ -46,7 +46,7 @@ namespace Todo.APi.Controllers
             var todoTaskResponseDTO = await _todoService.CreateTask(todoTaskRequestDTO);
 
             // Returns 201 Created with the location of the new resource
-            return CreatedAtAction(nameof(GetById), new { todoTaskResponseDTO.id }, todoTaskResponseDTO);
+            return CreatedAtAction(nameof(CreateTask), new { todoTaskResponseDTO.id }, todoTaskResponseDTO);
         }
 
         [HttpDelete("{id}")]
