@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using System;
+using Serilog;
 using System.Text.Json.Serialization;
 using Todo.APi.Data;
 using Todo.APi.DTO;
@@ -30,7 +30,6 @@ builder.Services.AddControllers()
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                    //options.JsonSerializerOptions. = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
                 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -45,6 +44,19 @@ builder.Services.AddDbContext<TodoDbContext>(options => options.UseSqlite(connec
 builder.Services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
 
 #endregion Database and Repositories
+
+#region Serilog
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.File("Logs/todo-app-.txt", rollingInterval: RollingInterval.Day) // Creates a new file every day
+    .Enrich.FromLogContext()
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
+#endregion Serilog
 
 builder.Services.AddScoped<ITodoService, TodoService>();
 
@@ -70,6 +82,8 @@ var app = builder.Build();
 DataSeeder.Seed(app);
 
 app.UseCors(myAllowSpecificOrigins);
+
+app.UseSerilogRequestLogging();
 
 app.UseMiddleware<ExceptionMiddleware>();
 
