@@ -82,7 +82,7 @@ builder.Services.AddSwaggerGen(options =>
         {
             Name  = "Daniel Ortiz",
             Email = "DOrtiz1011@gmail.com",
-            Url   = new Uri("https://github.com/DOrtiz1011/Todo"),            
+            Url   = new Uri("https://github.com/DOrtiz1011/Todo"),
         }
     });
 

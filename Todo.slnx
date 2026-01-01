@@ -1,3 +1,3 @@
 <Solution>
-  <Project Path="Todo.APi.csproj" />
+  <Project Path="Todo.Api/Todo.Api.csproj" />
 </Solution>
