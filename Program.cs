@@ -6,6 +6,7 @@ using Todo.APi.DTO;
 using Todo.APi.Middleware;
 using Todo.APi.Repository;
 using Todo.APi.Service;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,6 +62,8 @@ builder.Host.UseSerilog();
 builder.Services.AddScoped<ITodoService, TodoService>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+builder.Services.AddValidatorsFromAssemblyContaining<TodoTaskRequestDTO>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();

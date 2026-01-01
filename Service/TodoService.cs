@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Todo.APi.DTO;
 using Todo.APi.Exceptions;
 using Todo.APi.Models;
@@ -15,13 +16,15 @@ namespace Todo.APi.Service
     /// management functionality.</remarks>
     public class TodoService : ITodoService
     {
-        private readonly ITodoTaskRepository _todoTaskRepository;
-        private readonly IMapper             _mapper;
+        private readonly ITodoTaskRepository            _todoTaskRepository;
+        private readonly IMapper                        _mapper;
+        private readonly IValidator<TodoTaskRequestDTO> _validator;
 
-        public TodoService(ITodoTaskRepository todoTaskRepository, IMapper mapper)
+        public TodoService(ITodoTaskRepository todoTaskRepository, IMapper mapper, IValidator<TodoTaskRequestDTO> validator)
         {
             _todoTaskRepository = todoTaskRepository;
             _mapper             = mapper;
+            _validator          = validator;
         }
 
         /// <summary>
@@ -67,12 +70,8 @@ namespace Todo.APi.Service
         /// <exception cref="ValidationException">Thrown if the <paramref name="todoTaskRequestDTO"/> does not contain a valid, non-empty title.</exception>
         public async Task<TodoTaskResponseDTO> CreateTask(TodoTaskRequestDTO todoTaskRequestDTO)
         {
-            if (string.IsNullOrWhiteSpace(todoTaskRequestDTO.title))
-            {
-                throw new ValidationException("Task title cannot be empty.");
-            }
-
-            var todoTask = _mapper.Map<TodoTask>(todoTaskRequestDTO);
+            var validationResult = await _validator.ValidateAsync(todoTaskRequestDTO);
+            var todoTask         = _mapper.Map<TodoTask>(todoTaskRequestDTO);
 
             await _todoTaskRepository.AddAsync(todoTask);
 
@@ -101,7 +100,8 @@ namespace Todo.APi.Service
         /// was successful; otherwise, <see langword="false"/>.</returns>
         public async Task<bool> UpdateTask(TodoTaskRequestDTO todoTaskRequestDTO)
         {
-            var todoTask = _mapper.Map<TodoTask>(todoTaskRequestDTO);
+            var validationResult = await _validator.ValidateAsync(todoTaskRequestDTO);
+            var todoTask         = _mapper.Map<TodoTask>(todoTaskRequestDTO);
 
             return await _todoTaskRepository.UpdateAsync(todoTask);
         }
