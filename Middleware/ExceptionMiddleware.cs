@@ -58,5 +58,4 @@ namespace Todo.APi.Middleware
             await httpContext.Response.WriteAsync(json);
         }
     }
-
 }
