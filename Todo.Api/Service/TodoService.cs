@@ -73,7 +73,7 @@ namespace Todo.APi.Service
             var validationResult = await _validator.ValidateAsync(todoTaskRequestDTO);
             var todoTask         = _mapper.Map<TodoTask>(todoTaskRequestDTO);
 
-            await _todoTaskRepository.AddAsync(todoTask);
+            await _todoTaskRepository.CreateAsync(todoTask);
 
             var todoTaskResponseDTO = _mapper.Map<TodoTaskResponseDTO>(todoTask);
 

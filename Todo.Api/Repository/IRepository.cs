@@ -12,7 +12,7 @@ namespace Todo.APi.Repository
 
         Task<IEnumerable<T>> GetAllAsync();
         
-        Task AddAsync(T t);
+        Task CreateAsync(T t);
 
         Task<bool> DeleteAsync(int id);
 

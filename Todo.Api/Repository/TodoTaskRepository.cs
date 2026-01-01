@@ -25,7 +25,7 @@ namespace Todo.APi.Repository
             return await _todoDbContext.TodoTasks.FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public async Task AddAsync(TodoTask todoTask)
+        public async Task CreateAsync(TodoTask todoTask)
         {
             var now = DateTime.UtcNow;
 
