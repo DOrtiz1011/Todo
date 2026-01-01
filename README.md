@@ -5,7 +5,7 @@
 Build a small to-do task management API and frontend. This test evaluates:
 
 - Backend API design with .NET Core.
-- Data structure design with EF Core in memory.
+- Data structure design with EF Core in SQLLite.
 - Frontend component design with React.
 - Communication between frontend and backend.
 - Clean code, architecture structure, and thought process.
@@ -87,7 +87,7 @@ dotnet ef database update
 
 ### Backend
 
-Add a table, repository, and controller for notes on a task. [TableBase.cs](.\Models\TableBase.cs) is uesed to define the columns that all tables require. It is also used in [IRepository.cs](.\Repository\IRepository.cs) in a generic `where` clause to ensure that all tables inherit from `TableBase` when implementing the interface.
+Add a table, repository, and controller for notes on a task. [TableBase.cs](\Models\TableBase.cs) is uesed to define the columns that all tables require. It is also used in [IRepository.cs](\Repository\IRepository.cs) in a generic `where` clause to ensure that all tables inherit from `TableBase` when implementing the interface.
 
 Implement tempral tables for audit logging. Logging should be by design and not full dependant on the engineer wrting logging code.
 
@@ -95,7 +95,7 @@ Add the ablity to assign a user to a task. Add a table, repository, and controll
 
 Add unit tests and code coverage.
 
-Implement Specflow tests to run the app and mimic a user using the app.
+Implement integration tests to run the app and mimic a user using the app.
 
 ### Frontend
 
