@@ -19,7 +19,7 @@ namespace Todo.APi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TodoTaskResponseDTO>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<TodoTaskResponseDTO>>> GetAllTasks()
         {
             var todoTaskResponseDTOs = await _todoService.GetAllTasks();
 
@@ -28,7 +28,7 @@ namespace Todo.APi.Controllers
         
         // GET: api/tasks/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TodoTaskResponseDTO>> GetById(int id)
+        public async Task<ActionResult<TodoTaskResponseDTO>> GetTaskById(int id)
         {
             var todoTaskResponseDTO = await _todoService.GetTaskById(id);
 
@@ -41,7 +41,7 @@ namespace Todo.APi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TodoTaskResponseDTO>> Create([FromBody] TodoTaskRequestDTO todoTaskRequestDTO)
+        public async Task<ActionResult<TodoTaskResponseDTO>> CreateTask([FromBody] TodoTaskRequestDTO todoTaskRequestDTO)
         {
             var todoTaskResponseDTO = await _todoService.CreateTask(todoTaskRequestDTO);
 
@@ -65,7 +65,7 @@ namespace Todo.APi.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] TodoTaskRequestDTO todoTaskRequestDTO)
+        public async Task<IActionResult> UpdateTask([FromBody] TodoTaskRequestDTO todoTaskRequestDTO)
         {
             var updated = await _todoService.UpdateTask(todoTaskRequestDTO);
 
