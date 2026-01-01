@@ -1,4 +1,4 @@
 <Solution>
   <Project Path="Todo.Api/Todo.Api.csproj" />
-  <Project Path="Todo.Tests/Todo.Tests/Todo.Tests.csproj" Id="15c86974-ef05-4b27-993f-5224dcf82aca" />
+  <Project Path="Todo.Tests/Todo.Tests.csproj" Id="15c86974-ef05-4b27-993f-5224dcf82aca" />
 </Solution>
