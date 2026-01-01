@@ -3,6 +3,7 @@ using System;
 using System.Text.Json.Serialization;
 using Todo.APi.Data;
 using Todo.APi.DTO;
+using Todo.APi.Middleware;
 using Todo.APi.Repository;
 using Todo.APi.Service;
 
@@ -45,7 +46,7 @@ builder.Services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
 
 #endregion Database and Repositories
 
-builder.Services.AddScoped<ITodoService, TodoService>(); 
+builder.Services.AddScoped<ITodoService, TodoService>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
@@ -69,6 +70,8 @@ var app = builder.Build();
 DataSeeder.Seed(app);
 
 app.UseCors(myAllowSpecificOrigins);
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 

@@ -5,7 +5,7 @@ using Todo.APi.Service;
 namespace Todo.APi.Controllers
 {
     /// <summary>
-    /// Controller for Task API. Directs request to repository methods
+    /// Controller for Task API. Directs request to service methods
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
