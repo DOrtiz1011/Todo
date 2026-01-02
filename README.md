@@ -103,3 +103,4 @@ dotnet ef database update
 - Sortable columns
 - Pagination
 - Store to keep track of data and not fully reload table on every action.
+- Clickable Checkbox to complete the task on the list.
