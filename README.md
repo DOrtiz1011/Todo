@@ -22,19 +22,30 @@ Build a small to-do task management API and frontend. This test evaluates:
 ```powershell
 # Run powershell at the root of the repositpry
 
-dotnet build              # build the backend
-cd .\Todo.Api\            # Change to the Todo.Api directory
-dotnet ef database update # Setup the database
-dotnet run                # Run backend
+dotnet restore;            # Get NuGet packages
+dotnet build;              # build the backend
+cd .\Todo.Api\;            # Change to the Todo.Api directory
+dotnet ef database update; # Setup the database
+dotnet run;                # Run backend
 ```
 
 ### Run the React Frontend
 
 ```powershell
-# from the root of the repository goto the frontend\todoapp directory
-cd .\Todo.Api\Frontend\todoapp\
-npm install
-npm run dev
+# Run powershell at the root of the repositpry
+
+cd .\Todo.Api\Frontend\todoapp\; # goto the frontend\todoapp directory
+npm install;                     # install node moduels
+npm run dev;                     # run the frontend
+```
+
+### Run Unit Tests
+
+```powershell
+# Run powershell at the root of the repositpry
+
+cd .\Todo.Tests\; # goto the Todo.Tests directory
+dotnet test;      # run the unit tests
 ```
 
 The app will launch with test data created.
