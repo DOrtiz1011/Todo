@@ -51,6 +51,8 @@ npm run dev;                     # run the frontend
 
 The app will launch with test data created.
 
+[LocalHost URL for Frontend](http://localhost:5173/)
+
 ## Testing
 
 ### Run Unit Tests
@@ -61,8 +63,6 @@ The app will launch with test data created.
 cd .\Todo.Tests\; # goto the Todo.Tests directory
 dotnet test;      # run the unit tests
 ```
-
-[LocalHost URL for Frontend](http://localhost:5173/)
 
 ### Test API
 
