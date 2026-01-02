@@ -84,7 +84,7 @@ Add migration
 dotnet ef migrations add MIGRATION_NAME
 ```
 
-Apply migrations
+Apply Migrations
 
 ```powershell
 dotnet ef database update
@@ -94,7 +94,7 @@ dotnet ef database update
 
 ### Backend
 
-- Add a table, repository, and controller for notes on a task. [TableBase.cs](Todo.Api\Models\TableBase.cs) is uesed to define the columns that all tables require. It is also used in [IRepository.cs](Todo.Api\Repository\IRepository.cs) in a generic `where` clause to ensure that all tables inherit from [TableBase.cs](Todo.Api\Models\TableBase.cs) when implementing the interface.
+- Add a table, repository, and controller for notes on a task. `TableBase.cs` is uesed to define the columns that all tables require. It is also used in `IRepository.cs` in a generic `where` clause to ensure that all tables inherit from `TableBase.cs` when implementing the interface.
 - Implement tempral tables for audit logging. Logging should be by design and not full dependant on the engineer wrting logging code.
 - Add the ablity to assign a user to a task. Add a table, repository, and controller for users.
 
