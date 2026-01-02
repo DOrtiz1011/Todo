@@ -1,4 +1,4 @@
-import type { TodoTask } from './types/TodoTask';
+import type { TodoTask } from '../types/TodoTask';
 
 interface TodoTaskTableProps {
     tasks: TodoTask[];

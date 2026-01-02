@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { TodoTask } from './types/TodoTask';
+import type { TodoTask } from '../types/TodoTask';
 
 interface TaskFormProps {
     initialData?: TodoTask;

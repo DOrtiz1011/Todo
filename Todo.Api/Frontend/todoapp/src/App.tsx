@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import './App.css'
 import type { TodoTask } from './types/TodoTask';
-import TodoTaskTable from './TodoTaskTable';
-import { TaskForm } from './TaskForm';
+import TodoTaskTable from './components/TodoTaskTable';
+import { TaskForm } from './components/TaskForm';
 import axios from 'axios';
 
 const API_URL = "https://localhost:7103/api/TodoTask";

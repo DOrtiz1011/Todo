@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { TodoTask } from '../src/types/TodoTask';
+import type { TodoTask } from '../types/TodoTask';
 
 interface CreateTaskProps {
     onTaskCreated: (task: TodoTask) => void;
@@ -9,8 +9,8 @@ interface CreateTaskProps {
 export const CreateTask = ({ onTaskCreated, onCancel }: CreateTaskProps) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [priority, setPriority] = useState(0);
-    const [status, setStatus] = useState(0);
+    const [priority, setPriority] = useState('Low');
+    const [status, setStatus] = useState('NotStarted');
     const [dueDate, setDueDate] = useState('');
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -22,10 +22,10 @@ export const CreateTask = ({ onTaskCreated, onCancel }: CreateTaskProps) => {
             title,
             priority,
             status,
-            createdatetime: new Date,
-            duedatetime: new Date,
+            createdatetime: new Date().toISOString(),
+            duedatetime: dueDate ? new Date(dueDate).toISOString() : new Date().toISOString(),
             description,
-            lastupdatedatetime: new Date
+            lastupdatedatetime: new Date().toISOString()
         };
 
         onTaskCreated(newTask);
@@ -51,14 +51,14 @@ export const CreateTask = ({ onTaskCreated, onCancel }: CreateTaskProps) => {
                 />
 
                 <label>Priority</label>
-                <select value={priority} onChange={(e) => setPriority(Number(e.target.value))}>
+                <select value={priority} onChange={(e) => setPriority(e.target.value)}>
                     <option value='Low'>Low</option>
                     <option value='Medium'>Medium</option>
                     <option value='High'>High</option>
                 </select>
 
                 <label>Status</label>
-                <select value={status} onChange={(e) => setStatus(Number(e.target.value))}>
+                <select value={status} onChange={(e) => setStatus(e.target.value)}>
                     <option value='NotStarted'>Not Started</option>
                     <option value='In Progress'>In Progress</option>
                     <option value='Completed'>Completed</option>
