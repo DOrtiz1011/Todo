@@ -5,11 +5,10 @@ using FluentValidation;
 using FluentValidation.Results;
 using Moq;
 using Todo.Api.DTO;
-using Todo.Api.Exceptions; // Assuming you have your custom exceptions here
+using Todo.Api.Exceptions;
 using Todo.Api.Models;
 using Todo.Api.Repository;
 using Todo.Api.Service;
-using ValidationException = Todo.Api.Exceptions.ValidationException;
 
 namespace Todo.Tests
 {
@@ -65,13 +64,13 @@ namespace Todo.Tests
 
             var failures = new List<ValidationFailure> { new("Title", "Title is required") };
 
-            _mockValidator.Setup(v => v.ValidateAsync(todoTaskRequestDTO, default)).ReturnsAsync(new ValidationResult(failures));
+            _mockValidator.Setup(v => v.ValidateAsync(todoTaskRequestDTO)).ReturnsAsync(new ValidationResult(failures));
 
             // Act
             Func<Task> act = async () => await _todoService.CreateTask(todoTaskRequestDTO);
 
             // Assert
-            await act.Should().ThrowAsync<ValidationException>();
+            await act.Should().ThrowAsync<TodoValidationException>();
             _mockTodoTaskRepository.Verify(r => r.CreateAsync(It.IsAny<TodoTask>()), Times.Never);
         }
 

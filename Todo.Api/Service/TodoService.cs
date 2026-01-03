@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using System.ComponentModel.DataAnnotations;
 using Todo.Api.DTO;
 using Todo.Api.Exceptions;
 using Todo.Api.Models;
@@ -67,11 +68,18 @@ namespace Todo.Api.Service
         /// </summary>
         /// <param name="todoTaskRequestDTO">The data used to create the new to-do task. Must contain a non-empty title.</param>
         /// <returns>A <see cref="TodoTaskResponseDTO"/> representing the newly created to-do task.</returns>
-        /// <exception cref="ValidationException">Thrown if the <paramref name="todoTaskRequestDTO"/> does not contain a valid, non-empty title.</exception>
+        /// <exception cref="TodoValidationException">Thrown if the <paramref name="todoTaskRequestDTO"/> does not contain a valid, non-empty title.</exception>
         public async Task<TodoTaskResponseDTO> CreateTask(TodoTaskRequestDTO todoTaskRequestDTO)
         {
             var validationResult = await _validator.ValidateAsync(todoTaskRequestDTO);
-            var todoTask         = _mapper.Map<TodoTask>(todoTaskRequestDTO);
+
+			if (!validationResult.IsValid)
+			{
+				var errors = validationResult.ToDictionary();
+				throw new TodoValidationException(errors);
+			}
+
+			var todoTask = _mapper.Map<TodoTask>(todoTaskRequestDTO);
 
             await _todoTaskRepository.CreateAsync(todoTask);
 
