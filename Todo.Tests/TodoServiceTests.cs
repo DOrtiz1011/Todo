@@ -78,16 +78,14 @@ namespace Todo.Tests
         public async Task GetByIdAsync_WhenNotFound_ShouldThrowNotFoundException()
         {
             // Arrange
-            int nonExistentId = 99;
-            _mockTodoTaskRepository.Setup(r => r.GetByIdAsync(nonExistentId))
-                .ReturnsAsync((TodoTask)null!);
+            var nonExistentId = 99;
+            _mockTodoTaskRepository.Setup(r => r.GetByIdAsync(nonExistentId)).ReturnsAsync((TodoTask)null!);
 
             // Act
             Func<Task> act = async () => await _todoService.GetTaskById(nonExistentId);
 
             // Assert
-            await act.Should().ThrowAsync<NotFoundException>()
-                     .WithMessage($"Todo with ID {nonExistentId} was not found.");
+            await act.Should().ThrowAsync<NotFoundException>().WithMessage($"TodoTask with id {nonExistentId} was not found.");
         }
     }
 }
