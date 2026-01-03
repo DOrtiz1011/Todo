@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Todo.APi.DTO;
-using Todo.APi.Service;
+using Todo.Api.DTO;
+using Todo.Api.Service;
 
-namespace Todo.APi.Controllers
+namespace Todo.Api.Controllers
 {
     /// <summary>
     /// Represents an API controller that manages to-do tasks, providing endpoints to create, retrieve, update, and

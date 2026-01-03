@@ -4,11 +4,11 @@ using Microsoft.OpenApi;
 using Serilog;
 using System.Reflection;
 using System.Text.Json.Serialization;
-using Todo.APi.Data;
-using Todo.APi.DTO;
-using Todo.APi.Middleware;
-using Todo.APi.Repository;
-using Todo.APi.Service;
+using Todo.Api.Data;
+using Todo.Api.DTO;
+using Todo.Api.Middleware;
+using Todo.Api.Repository;
+using Todo.Api.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 

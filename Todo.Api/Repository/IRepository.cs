@@ -1,6 +1,6 @@
-﻿using Todo.APi.Models;
+﻿using Todo.Api.Models;
 
-namespace Todo.APi.Repository
+namespace Todo.Api.Repository
 {
     /// <summary>
     /// Defines the basic CRUD operations for all repos. This uses a generic to enforce that all models inherit from TableBase.

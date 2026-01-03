@@ -1,4 +1,4 @@
-﻿namespace Todo.APi.DTO
+﻿namespace Todo.Api.DTO
 {
     public class TodoTaskResponseDTO : BaseDTO
     {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Todo.APi.Models;
+using Todo.Api.Models;
 
 public class TodoDbContext : DbContext
 {

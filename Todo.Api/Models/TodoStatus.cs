@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Todo.APi.Models
+namespace Todo.Api.Models
 {
     /// <summary>
     /// Defines the statuses a task can have.

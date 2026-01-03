@@ -1,8 +1,8 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using Todo.APi.Models;
-using Todo.APi.Repository;
+using Todo.Api.Models;
+using Todo.Api.Repository;
 
 namespace Todo.Tests
 {

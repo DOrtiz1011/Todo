@@ -1,9 +1,9 @@
 ﻿using System.Net;
 using System.Text.Json;
-using Todo.APi.DTO;
-using Todo.APi.Exceptions;
+using Todo.Api.DTO;
+using Todo.Api.Exceptions;
 
-namespace Todo.APi.Middleware
+namespace Todo.Api.Middleware
 {
     public class ExceptionMiddleware
     {

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using Todo.APi.DTO;
-using Todo.APi.Exceptions;
-using Todo.APi.Models;
-using Todo.APi.Repository;
+using Todo.Api.DTO;
+using Todo.Api.Exceptions;
+using Todo.Api.Models;
+using Todo.Api.Repository;
 
-namespace Todo.APi.Service
+namespace Todo.Api.Service
 {
     /// <summary>
     /// Provides operations for managing to-do tasks, including creating, retrieving, updating, and deleting tasks.

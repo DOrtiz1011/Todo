@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Todo.APi.Exceptions
+namespace Todo.Api.Exceptions
 {
     public abstract class ExceptionBase : Exception
     {

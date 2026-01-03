@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Todo.APi.Models;
+using Todo.Api.Models;
 
-namespace Todo.APi.DTO
+namespace Todo.Api.DTO
 {
     public class MappingProfile : Profile
     {
