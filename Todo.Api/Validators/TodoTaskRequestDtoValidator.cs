@@ -8,6 +8,7 @@ namespace Todo.Api.Validators
         public TodoTaskRequestDtoValidator()
         {
             RuleFor(x => x.title)
+                .NotNull().WithMessage("Title is required.")
                 .NotEmpty().WithMessage("Title is required.")
                 .MaximumLength(100).WithMessage("Title cannot exceed 100 characters.");
 
@@ -15,7 +16,8 @@ namespace Todo.Api.Validators
                 .MaximumLength(500).WithMessage("Description is too long.");
             
             RuleFor(x => x.duedatetime)
-                .GreaterThan(DateTime.Now).WithMessage("Due date must be in the future.");
+                .GreaterThan(DateTime.UtcNow).WithMessage("Due date must be in the future.")
+                .When(x => x.duedatetime.HasValue);
         }
     }
 }
