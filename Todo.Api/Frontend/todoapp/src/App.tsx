@@ -3,48 +3,32 @@ import './App.css'
 import type { TodoTask } from './types/TodoTask';
 import TodoTaskTable from './components/TodoTaskTable';
 import { TaskForm } from './components/TaskForm';
-import axios from 'axios';
-
-const API_URL = "https://localhost:7103/api/TodoTask";
+import { GetAllTasks, CreateOrUpdateTask, DeleteTask } from './api/todoApi';
 
 const App: React.FC = () => {
     const [tasks, setTasks] = useState<TodoTask[]>([]);
     const [view, setView] = useState<'list' | 'form'>('list');
     const [taskToEdit, setTaskToEdit] = useState<TodoTask | undefined>(undefined);
 
-    const fetchTasks = async () => {
+    const handleGetAllTasks = async () => {
         try {
-            const res = await axios.get(API_URL);
-            setTasks(res.data);
+            setTasks(await GetAllTasks());
         } catch (err) {
             console.error("Error fetching tasks:", err);
         }
     };
 
-    // This handles both POST (new) and PUT (update)
     const handleSaveTask = async (task: Partial<TodoTask>) => {
-        try {
-            console.log(task);
-            if (task.id > 0) {
-                // UPDATE: The task has an ID
-                await axios.put(API_URL, task);
-            } else {
-                // CREATE: The task has no ID
-                await axios.post(API_URL, task);
-            }
+        await CreateOrUpdateTask(task);
 
-            setView('list');
-            setTaskToEdit(undefined);
-            fetchTasks();
-        } catch (err) {
-            console.error("Error saving task:", err);
-            alert("Could not save the task. Check if the backend is running.");
-        }
+        setView('list');
+        setTaskToEdit(undefined);
+        handleGetAllTasks();
     };
 
-    const deleteTask = async (id: number) => {
-        await axios.delete(`${API_URL}/${id}`);
-        fetchTasks();
+    const handleDeleteTask = async (id: number) => {
+        await DeleteTask(id);
+        handleGetAllTasks();
     };
 
     const startEdit = (task: TodoTask) => {
@@ -57,7 +41,7 @@ const App: React.FC = () => {
         setView('form');
     };
 
-    useEffect(() => { fetchTasks(); }, []);
+    useEffect(() => { handleGetAllTasks(); }, []);
 
     return (
         <div style={{ padding: '40px' }}>
@@ -72,7 +56,7 @@ const App: React.FC = () => {
 
                     <TodoTaskTable
                         tasks={tasks}
-                        onDelete={deleteTask}
+                        onDelete={handleDeleteTask}
                         onEdit={startEdit}
                     />
                 </>
