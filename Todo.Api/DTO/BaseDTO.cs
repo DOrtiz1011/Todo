@@ -2,8 +2,8 @@
 {
     public abstract class BaseDTO
     {
-        public          int    id                 { get; set; }
-        public required string createdatetime     { get; set; }
-        public required string lastupdatedatetime { get; set; }
+        public          int      id                 { get; set; }
+        public required DateTime createdatetime     { get; set; }
+        public required DateTime lastupdatedatetime { get; set; }
     }
 }

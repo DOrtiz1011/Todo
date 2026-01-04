@@ -4,11 +4,14 @@ import { formatForInput } from '../utils/dateUtils';
 
 interface TaskFormProps {
     initialData?: TodoTask;
-    onSave: (task: Partial<TodoTask>) => void; // Use Partial because new tasks lack IDs
+    onSave: (task: TodoTask) => void;
     onCancel: () => void;
 }
 
 export const TaskForm = ({ initialData, onSave, onCancel }: TaskFormProps) => {
+
+    const [createDateTime, setCreateDateTime] = useState(formatForInput(initialData?.createdatetime));
+
     const [title, setTitle] = useState(initialData?.title || '');
     const [description, setDescription] = useState(initialData?.description || '');
     const [status, setStatus] = useState(initialData?.status ?? 'NotStarted');
@@ -18,13 +21,15 @@ export const TaskForm = ({ initialData, onSave, onCancel }: TaskFormProps) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        const taskData: Partial<TodoTask> = {
-            ...initialData, // Spreading preserves id, createdatetime, etc.
+        const taskData: TodoTask = {
+            id: initialData?.id || 0,
+            createdatetime: createDateTime ? new Date(createDateTime).toISOString() : new Date().toISOString(),
+            lastupdatedatetime: new Date().toISOString(),
             title,
             description,
             status,
             priority,
-            duedatetime: new Date(dueDateTime),
+            duedatetime: new Date(dueDateTime)
         };
 
         onSave(taskData);
