@@ -39,10 +39,19 @@ export const TaskForm = ({ initialData, onSave, onCancel }: TaskFormProps) => {
             <h2>{initialData ? "Edit Task" : "New Task"}</h2>
 
             <label>Title</label>
-            <input value={title} maxLength={50} onChange={e => setTitle(e.target.value)} required />
+            <input
+                value={title}
+                maxLength={50}
+                onChange={e => setTitle(e.target.value)}
+                required
+            />
 
             <label>Description</label>
-            <textarea value={description} maxLength={250} onChange={e => setDescription(e.target.value)} />
+            <textarea
+                value={description}
+                maxLength={250}
+                onChange={e => setDescription(e.target.value)}
+            />
 
             <label>Priority</label>
             <select value={priority} onChange={(e) => setPriority(e.target.value)}>
