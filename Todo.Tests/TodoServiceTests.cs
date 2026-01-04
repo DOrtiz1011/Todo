@@ -14,17 +14,17 @@ namespace Todo.Tests
 {
     public class TodoServiceTests : TestBase
     {
-        private readonly Mock<ITodoTaskRepository>            _mockTodoTaskRepository;
+        private readonly Mock<ITodoTaskRepository> _mockTodoTaskRepository;
         private readonly Mock<IValidator<TodoTaskRequestDTO>> _mockValidator;
-        private readonly TodoService                          _todoService;
-        private readonly IMapper                              _mapper;
+        private readonly TodoService _todoService;
+        private readonly IMapper _mapper;
 
         public TodoServiceTests()
         {
             _mockTodoTaskRepository = new Mock<ITodoTaskRepository>();
-            _mockValidator          = new Mock<IValidator<TodoTaskRequestDTO>>();
-            _mapper                 = new MapperConfiguration(cfg => { cfg.AddProfile<MappingProfile>(); }).CreateMapper();
-            _todoService            = new TodoService(_mockTodoTaskRepository.Object, _mapper, _mockValidator.Object);
+            _mockValidator = new Mock<IValidator<TodoTaskRequestDTO>>();
+            _mapper = new MapperConfiguration(cfg => { cfg.AddProfile<MappingProfile>(); }).CreateMapper();
+            _todoService = new TodoService(_mockTodoTaskRepository.Object, _mapper, _mockValidator.Object);
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace Todo.Tests
             // Arrange
             var todoTaskRequestDTO = TestFixture.Build<TodoTaskRequestDTO>()
                                                 .With(x => x.priority, "Low")
-                                                .With(x => x.status,   "NotStarted")
+                                                .With(x => x.status, "NotStarted")
                                                 .Create();
 
             var expectedItem = new TodoTask { Id = 1, Title = todoTaskRequestDTO.title };
@@ -57,9 +57,9 @@ namespace Todo.Tests
         {
             // Arrange
             var todoTaskRequestDTO = TestFixture.Build<TodoTaskRequestDTO>()
-                                                .With(x => x.title,    string.Empty)
+                                                .With(x => x.title, string.Empty)
                                                 .With(x => x.priority, "Low")
-                                                .With(x => x.status,   "NotStarted")
+                                                .With(x => x.status, "NotStarted")
                                                 .Create();
 
             var failures = new List<ValidationFailure> { new("Title", "Title is required") };
@@ -86,6 +86,70 @@ namespace Todo.Tests
 
             // Assert
             await act.Should().ThrowAsync<NotFoundException>().WithMessage($"TodoTask with id {nonExistentId} was not found.");
+        }
+
+        [Fact]
+        public async Task GetAllTasksAsync_WhenNoTasks_ShouldReturnEmptyCollection()
+        {
+            // Arrange
+            _mockTodoTaskRepository.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<TodoTask>());
+
+            // Act
+            var result = await _todoService.GetAllTasks();
+
+            // Assert
+            result.Should().BeEmpty();
+        }
+
+        [Fact]
+        public async Task GetAllTasksAsync_WhenTasksExist_ShouldReturnTasks()
+        {
+            // Arrange
+            var todoTasks = TestFixture.CreateMany<TodoTask>(3).ToList();
+            _mockTodoTaskRepository.Setup(r => r.GetAllAsync()).ReturnsAsync(todoTasks);
+
+            // Act
+            var result = await _todoService.GetAllTasks();
+
+            // Assert
+            result.Should().HaveCount(3);
+        }
+
+        [Fact]
+        public async Task GetByIdAsync_WhenFound_ShouldReturnTask()
+        {
+            // Arrange
+            var existingId = 1;
+            var todoTask = TestFixture.Build<TodoTask>()
+                                      .With(x => x.Id, existingId)
+                                      .Create();
+
+            _mockTodoTaskRepository.Setup(r => r.GetByIdAsync(existingId)).ReturnsAsync(todoTask);
+
+            // Act
+            var result = await _todoService.GetTaskById(existingId);
+
+            // Assert
+            result.Should().NotBeNull();
+            result.id.Should().Be(existingId);
+        }
+
+        [Fact]
+        public async Task CreateTaskAsync_WhenValid_ShouldCallRepositoryCreateOnce()
+        {
+            // Arrange
+            var todoTaskRequestDTO = TestFixture.Build<TodoTaskRequestDTO>()
+                                                .With(x => x.priority, "Medium")
+                                                .With(x => x.status, "InProgress")
+                                                .Create();
+
+            _mockValidator.Setup(v => v.ValidateAsync(todoTaskRequestDTO, default)).ReturnsAsync(new ValidationResult()); // Success result
+            
+            // Act
+            await _todoService.CreateTask(todoTaskRequestDTO);
+            
+            // Assert
+            _mockTodoTaskRepository.Verify(r => r.CreateAsync(It.IsAny<TodoTask>()), Times.Once);
         }
     }
 }
