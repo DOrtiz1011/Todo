@@ -18,7 +18,7 @@ const App: React.FC = () => {
         }
     };
 
-    const handleSaveTask = async (task: Partial<TodoTask>) => {
+    const handleSaveTask = async (task: TodoTask) => {
         await CreateOrUpdateTask(task);
 
         setView('list');

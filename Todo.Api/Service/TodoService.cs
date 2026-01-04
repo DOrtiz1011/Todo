@@ -109,7 +109,14 @@ namespace Todo.Api.Service
         public async Task<bool> UpdateTask(TodoTaskRequestDTO todoTaskRequestDTO)
         {
             var validationResult = await _validator.ValidateAsync(todoTaskRequestDTO);
-            var todoTask         = _mapper.Map<TodoTask>(todoTaskRequestDTO);
+            
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.ToDictionary();
+                throw new TodoValidationException(errors);
+            }
+            
+            var todoTask = _mapper.Map<TodoTask>(todoTaskRequestDTO);
 
             return await _todoTaskRepository.UpdateAsync(todoTask);
         }

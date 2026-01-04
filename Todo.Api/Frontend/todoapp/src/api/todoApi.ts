@@ -13,7 +13,7 @@ export const GetAllTasks = async () => {
 };
 
 // This handles both POST (new) and PUT (update)
-export const CreateOrUpdateTask = async (task: Partial<TodoTask>) => {
+export const CreateOrUpdateTask = async (task: TodoTask) => {
     try {
         //console.log(task);
 

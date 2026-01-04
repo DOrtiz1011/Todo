@@ -1,8 +1,7 @@
 ﻿namespace Todo.Api.DTO
 {
-    public class TodoTaskRequestDTO
+    public class TodoTaskRequestDTO : BaseDTO
     {
-        public int             id          { get; set; }
         public string          title       { get; set; } = string.Empty;
         public string?         description { get; set; } = string.Empty;
         public DateTime?       duedatetime { get; set; }
