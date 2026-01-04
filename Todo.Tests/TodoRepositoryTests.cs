@@ -154,6 +154,20 @@ namespace Todo.Tests
             await act.Should().ThrowAsync<NullReferenceException>();
         }
 
+        [Fact]
+        public async Task UpdateAsync_ShouldBeFalse_WhenTodoDoesNotExist()
+        {
+            // Arrange
+            var todoTask = TestFixture.Build<TodoTask>()
+                                      .With(x => x.Id, 999)
+                                      .Create();
+            // Act
+            var returnedTodoTask = await _TodoTaskRepository.UpdateAsync(todoTask);
+
+            // Assert
+            returnedTodoTask.Should().BeFalse();
+        }
+
         private void CompareTodoTasks(TodoTask expected, TodoTask actual)
         {
             actual.Should().NotBeNull();
