@@ -11,7 +11,6 @@ interface TaskFormProps {
 export const TaskForm = ({ initialData, onSave, onCancel }: TaskFormProps) => {
 
     const [createDateTime, setCreateDateTime] = useState(formatForInput(initialData?.createdatetime));
-
     const [title, setTitle] = useState(initialData?.title || '');
     const [description, setDescription] = useState(initialData?.description || '');
     const [status, setStatus] = useState(initialData?.status ?? 'NotStarted');
