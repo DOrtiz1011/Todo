@@ -50,7 +50,7 @@ export const TodoTaskTable = ({ tasks, onDelete, onEdit }: TodoTaskTableProps) =
 };
 
 // Styles
-const headerStyle: React.CSSProperties = { padding: '12px', border: '1px solid #ddd', textAlign: 'left' };
+const headerStyle: React.CSSProperties = { padding: '12px', border: '1px solid #ddd', textAlign: 'center' };
 const cellStyle: React.CSSProperties = { padding: '12px', border: '1px solid #ddd', backgroundColor: '#1a1a1a', color: 'white' };
 const editButtonStyle = { backgroundColor: '#007bff', color: 'white', border: 'none', padding: '5px 10px', cursor: 'pointer', borderRadius: '4px' };
 const deleteButtonStyle = { backgroundColor: '#dc3545', color: 'white', border: 'none', padding: '5px 10px', cursor: 'pointer', borderRadius: '4px' };
