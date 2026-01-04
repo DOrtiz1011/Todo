@@ -15,8 +15,6 @@ export const GetAllTasks = async () => {
 // This handles both POST (new) and PUT (update)
 export const CreateOrUpdateTask = async (task: TodoTask) => {
     try {
-        //console.log(task);
-
         if (task.id > 0) {
             await axios.put(API_URL, task);    // UPDATE: The task has an ID
         } else {
