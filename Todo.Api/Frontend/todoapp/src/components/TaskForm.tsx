@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { TodoTask } from '../types/TodoTask';
+import { formatForInput } from '../utils/dateUtils';
 
 interface TaskFormProps {
     initialData?: TodoTask;
@@ -12,14 +13,6 @@ export const TaskForm = ({ initialData, onSave, onCancel }: TaskFormProps) => {
     const [description, setDescription] = useState(initialData?.description || '');
     const [status, setStatus] = useState(initialData?.status ?? 'NotStarted');
     const [priority, setPriority] = useState(initialData?.priority ?? 'Low');
-
-    // Format Date for the input (YYYY-MM-DDTHH:mm)
-    const formatForInput = (date?: Date | string) => {
-        if (!date) return '';
-        const d = new Date(date);
-        return d.toISOString().slice(0, 16);
-    };
-
     const [dueDateTime, setDueDateTime] = useState(formatForInput(initialData?.duedatetime));
 
     const handleSubmit = (e: React.FormEvent) => {
